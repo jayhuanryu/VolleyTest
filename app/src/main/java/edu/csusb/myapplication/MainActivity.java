@@ -21,13 +21,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView textView = (TextView)findViewById(R.id.textview);
+        final TextView textView = (TextView)findViewById(R.id.textview);
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://www.google.com", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                String result = response.substring(0,500); //첫 500글자만 표현
+                textView.setText(result);
 
             }
         }, new Response.ErrorListener() {
@@ -61,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 return params;
             }
         };
-        
+
         postReqeustQueue.add(postStringRequest);
     }
 
